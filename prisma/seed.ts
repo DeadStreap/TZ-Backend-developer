@@ -49,6 +49,13 @@ function assignKeysToProducts(skuList: string[], allKeys: string[]): { sku: stri
   return assigned;
 }
 
+const promocodes = [
+  { code: 'WELCOME10', type: 'percent', value: 10, maxUses: 100, active: true },
+  { code: 'GG500', type: 'amount', value: 500, currency: 'RUB', maxUses: 20, active: true },
+  { code: 'LIMIT3', type: 'percent', value: 25, maxUses: 3, active: true },
+  { code: 'ONCEONLY', type: 'percent', value: 50, maxUses: 1, active: true },
+];
+
 async function main() {
   console.log('Seeding products...');
   for (const product of products) {
@@ -69,7 +76,16 @@ async function main() {
     });
   }
 
-  console.log(`Seeded ${products.length} products and ${assignedKeys.length} keys.`);
+  console.log('Seeding promocodes...');
+  for (const promo of promocodes) {
+    await prisma.promoCode.upsert({
+      where: { code: promo.code },
+      update: promo,
+      create: promo,
+    });
+  }
+
+  console.log(`Seeded ${products.length} products, ${assignedKeys.length} keys, ${promocodes.length} promocodes.`);
 }
 
 main()

@@ -60,3 +60,27 @@ model Payment {
 
   @@index([orderId])
 }
+
+model DeliveryAttempt {
+  id        Int      @id @default(autoincrement())
+  requestId String   @unique // "{orderId}-{attempt}"
+  orderId   String
+  sku       String
+  code      String?  // выданный код (null если таймаут без ответа)
+  supplier  String
+  status    String   // ok | timeout | error
+  createdAt DateTime @default(now())
+
+  @@index([requestId])
+}
+
+model PromoCode {
+  id        Int    @id @default(autoincrement())
+  code      String @unique
+  type      String // percent | amount
+  value     Float
+  currency  String @default("RUB")
+  maxUses   Int
+  usedCount Int    @default(0)
+  active    Boolean @default(true)
+}

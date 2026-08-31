@@ -33,6 +33,7 @@ export async function seedTestData() {
 
 export async function cleanupDb() {
   const p = prisma();
+  await p.deliveryAttempt.deleteMany();
   await p.payment.deleteMany();
   await p.key.updateMany({ data: { status: 'available', orderId: null, issuedAt: null } });
   await p.order.deleteMany();

@@ -29,12 +29,14 @@ export async function handlePaymentWebhook(event: PaymentWebhookEvent): Promise<
 
   const newStatus = event.status === 'paid' ? ORDER_STATUSES.PAID : ORDER_STATUSES.PAYMENT_FAILED;
 
-  let paymentCreated = false;
   try {
-    await prisma.payment.create({
-      data: { eventId: event.event_id, orderId: event.order_id, status: event.status, amount: event.amount },
-    });
-    paymentCreated = true;
+    await prisma.$transaction([
+      prisma.payment.create({
+        data: { eventId: event.event_id, orderId: event.order_id, status: event.status, amount: event.amount },
+      }),
+      prisma.order.update({ where: { orderId: event.order_id }, data: { status: newStatus } }),
+    ]);
+    log.info({ orderId: event.order_id, newStatus }, 'Payment recorded, order status updated');
   } catch (error: any) {
     if (error.code === 'P2002' || error.message?.includes('UNIQUE constraint failed')) {
       log.info({ eventId: event.event_id }, 'Duplicate (race condition caught by constraint)');
@@ -43,26 +45,27 @@ export async function handlePaymentWebhook(event: PaymentWebhookEvent): Promise<
     throw error;
   }
 
-  if (paymentCreated) {
-    await prisma.order.update({ where: { orderId: event.order_id }, data: { status: newStatus } });
-    log.info({ orderId: event.order_id, newStatus }, 'Order status updated');
-  }
-
   return { status: 'ok', orderId: event.order_id };
 }
 
-const issuedCodes = new Map<string, { code: string; expiresAt: number }>();
-
-export function saveIssuedCode(requestId: string, code: string): void {
-  issuedCodes.set(requestId, { code, expiresAt: Date.now() + 3600_000 });
+export async function saveIssuedCode(requestId: string, code: string, orderId: string, sku: string, supplier: string): Promise<void> {
+  await prisma.deliveryAttempt.upsert({
+    where: { requestId },
+    update: { code, status: 'ok' },
+    create: { requestId, orderId, sku, code, supplier, status: 'ok' },
+  });
 }
 
-export function getIssuedCode(requestId: string): string | null {
-  const entry = issuedCodes.get(requestId);
-  if (!entry) return null;
-  if (Date.now() > entry.expiresAt) {
-    issuedCodes.delete(requestId);
-    return null;
-  }
+export async function getIssuedCode(requestId: string): Promise<string | null> {
+  const entry = await prisma.deliveryAttempt.findUnique({ where: { requestId } });
+  if (!entry || entry.status !== 'ok' || !entry.code) return null;
   return entry.code;
+}
+
+export async function recordDeliveryAttempt(requestId: string, orderId: string, sku: string, supplier: string, status: string): Promise<void> {
+  await prisma.deliveryAttempt.upsert({
+    where: { requestId },
+    update: { status },
+    create: { requestId, orderId, sku, supplier, status },
+  });
 }

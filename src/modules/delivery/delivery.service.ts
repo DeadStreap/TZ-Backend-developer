@@ -3,7 +3,7 @@ import { getPrisma } from '../../config/prisma.js';
 const prisma = getPrisma();
 import { childLogger } from '../../lib/logger.js';
 import { ORDER_STATUSES } from '../orders/orders.types.js';
-import { saveIssuedCode, getIssuedCode } from '../payments/payments.service.js';
+import { saveIssuedCode, getIssuedCode, recordDeliveryAttempt } from '../payments/payments.service.js';
 import type { Supplier } from './suppliers.js';
 
 const log = childLogger({ module: 'delivery' });
@@ -85,7 +85,7 @@ export async function deliverOrder(
         );
 
         if (result.status === 'ok') {
-          saveIssuedCode(requestId, result.code);
+          await saveIssuedCode(requestId, result.code, orderId, order.sku, supplier.name);
 
           const claimed = await claimKey(orderId, order.sku);
           if (claimed) {
@@ -97,9 +97,10 @@ export async function deliverOrder(
         if (result.status === 'error' && result.reason === 'out_of_stock') break;
       } catch (error) {
         if (error instanceof TimeoutError) {
-          const existingCode = getIssuedCode(requestId);
+          await recordDeliveryAttempt(requestId, orderId, order.sku, supplier.name, 'timeout');
+          const existingCode = await getIssuedCode(requestId);
           if (existingCode) {
-            log.info({ orderId, requestId }, 'Timeout recovered from cache');
+            log.info({ orderId, requestId }, 'Timeout recovered from DB');
             await claimKey(orderId, order.sku);
             return { status: 'delivered', code: existingCode, supplier: supplier.name, attempts: totalAttempts };
           }
@@ -117,7 +118,7 @@ export async function deliverOrder(
 
 async function claimKey(orderId: string, sku: string): Promise<boolean> {
   const key = await prisma.key.findFirst({
-    where: { sku, status: 'available', orderId: null },
+    where: { sku, status: 'available' },
   });
   if (!key) {
     await prisma.order.update({ where: { orderId }, data: { status: ORDER_STATUSES.OUT_OF_STOCK } });
@@ -125,27 +126,11 @@ async function claimKey(orderId: string, sku: string): Promise<boolean> {
   }
 
   const result = await prisma.key.updateMany({
-    where: { id: key.id, orderId: null },
+    where: { id: key.id, status: 'available' },
     data: { status: 'issued', orderId, issuedAt: new Date() },
   });
 
   if (result.count === 0) {
-    const retryKey = await prisma.key.findFirst({
-      where: { sku, status: 'available', orderId: null },
-    });
-    if (retryKey) {
-      const retryResult = await prisma.key.updateMany({
-        where: { id: retryKey.id, orderId: null },
-        data: { status: 'issued', orderId, issuedAt: new Date() },
-      });
-      if (retryResult.count > 0) {
-        await prisma.order.update({
-          where: { orderId },
-          data: { status: ORDER_STATUSES.DELIVERED, keyId: retryKey.id },
-        });
-        return true;
-      }
-    }
     await prisma.order.update({ where: { orderId }, data: { status: ORDER_STATUSES.OUT_OF_STOCK } });
     return false;
   }

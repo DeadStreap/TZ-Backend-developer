@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameKeys - Магазин цифровых товаров</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <button class="catalog-btn" id="catalogBtn">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="6" height="6" rx="1" fill="white"/><rect x="12" y="2" width="6" height="6" rx="1" fill="white"/><rect x="2" y="12" width="6" height="6" rx="1" fill="white"/><rect x="12" y="12" width="6" height="6" rx="1" fill="white"/></svg>
+        Каталог
+      </button>
+      <div class="search-box">
+        <input type="text" placeholder="Игра, приложение или услуга..." class="search-input" id="searchInput">
+        <button class="search-fav-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <button class="search-submit-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <div class="header-profile">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+
+    <div class="catalog-dropdown" id="catalogDropdown">
+      <div class="catalog-sidebar">
+        <a href="#" class="catalog-sidebar-item active" data-cat="games">Игры и игровые сервисы <span>&rsaquo;</span></a>
+        <a href="#" class="catalog-sidebar-item" data-cat="items">Игровые ценности <span>&rsaquo;</span></a>
+        <a href="#" class="catalog-sidebar-item" data-cat="mobile">Мобильные игры <span>&rsaquo;</span></a>
+        <a href="#" class="catalog-sidebar-item" data-cat="social">Сервисы и соцсети <span>&rsaquo;</span></a>
+        <a href="#" class="catalog-sidebar-item" data-cat="software">Программы <span>&rsaquo;</span></a>
+      </div>
+      <div class="catalog-content">
+        <div class="catalog-platforms">
+          <div class="catalog-platform">
+            <h4>Steam <span>&rsaquo;</span></h4>
+            <a href="#">Игры и DLC</a>
+            <a href="#">Пополнение баланса</a>
+            <a href="#">Подарочные карты</a>
+            <a href="#">Коллекционные карточки</a>
+            <a href="#">Смена региона</a>
+          </div>
+          <div class="catalog-platform">
+            <h4>PlayStation <span>&rsaquo;</span></h4>
+            <a href="#">Игры и DLC</a>
+            <a href="#">Пополнение баланса</a>
+            <a href="#">Новые аккаунты</a>
+            <a href="#">PS Plus</a>
+            <a href="#">EA Play</a>
+          </div>
+          <div class="catalog-platform">
+            <h4>Xbox <span>&rsaquo;</span></h4>
+            <a href="#">Игры и DLC</a>
+            <a href="#">Пополнение баланса</a>
+            <a href="#">Новые аккаунты</a>
+            <a href="#">Xbox Game Pass</a>
+            <a href="#">Услуги</a>
+          </div>
+          <div class="catalog-platform">
+            <h4>Nintendo <span>&rsaquo;</span></h4>
+            <a href="#">Игры и DLC</a>
+            <a href="#">Подарочные карты</a>
+            <a href="#">Новые аккаунты</a>
+            <a href="#">NS Online</a>
+          </div>
+          <div class="catalog-platform">
+            <h4>Battle.net <span>&rsaquo;</span></h4>
+            <a href="#">World of Warcraft</a>
+            <a href="#">Подарочные карты</a>
+            <a href="#">Прямое пополнение</a>
+            <a href="#">Новые аккаунты</a>
+            <a href="#">Смена региона</a>
+          </div>
+        </div>
+        <div class="catalog-collections">
+          <h4>Подборки <span>&rsaquo;</span></h4>
+          <a href="#">Скидки 90%</a>
+          <a href="#">Популярные издатели</a>
+          <a href="#">Лучшие серии игр</a>
+          <a href="#">Steam Deck</a>
+          <a href="#">Bundle-наборы</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="banner-section">
+      <div class="banner-carousel" id="bannerCarousel">
+        <div class="banner-slides">
+          <div class="banner-slide active" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+            <div class="banner-content">
+              <span class="banner-badge">NEW</span>
+              <h2>Пополни Steam</h2>
+              <p>Моментальная выдача ключей после оплаты</p>
+            </div>
+          </div>
+          <div class="banner-slide" style="background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);">
+            <div class="banner-content">
+              <span class="banner-badge">SALE</span>
+              <h2>Скидки до 25%</h2>
+              <p>Промокод LIMIT3 при покупке</p>
+            </div>
+          </div>
+          <div class="banner-slide" style="background: linear-gradient(135deg, #0c0c1d 0%, #1a1a3e 50%, #2d1b69 100%);">
+            <div class="banner-content">
+              <span class="banner-badge">AUTO</span>
+              <h2>Автоматическая выдача</h2>
+              <p>Ключи приходят сразу на экран</p>
+            </div>
+          </div>
+        </div>
+        <button class="banner-arrow banner-prev" id="bannerPrev">&#8592;</button>
+        <button class="banner-arrow banner-next" id="bannerNext">&#8594;</button>
+        <div class="banner-dots" id="bannerDots">
+          <span class="dot active" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section">
+      <div class="services-row">
+        <div class="service-icon"><div class="service-icon-circle" style="background:#1b2838;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3l-.5 3H13v6.95c5.05-.5 9-4.76 9-9.95 0-5.52-4.48-10-10-10z"/></svg></div><span>Steam</span></div>
+        <div class="service-icon"><div class="service-icon-circle" style="background:#0088cc;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg></div><span>Telegram</span></div>
+        <div class="service-icon"><div class="service-icon-circle" style="background:#e2231a;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M5.164 0L0 18.988h6.978L12.13 0H5.164zm5.736 7.34L16.636 18.99H24l-5.736-11.65h-7.4z"/></svg></div><span>Roblox</span></div>
+        <div class="service-icon"><div class="service-icon-circle" style="background:#f0c040;"><span style="color:#000;font-weight:800;font-size:13px;">B</span></div><span>Brawl Stars</span></div>
+        <div class="service-icon"><div class="service-icon-circle" style="background:#2d2d2d;"><span style="color:#fff;font-weight:700;font-size:10px;">PUBG</span></div><span>PUBG Mob...</span></div>
+        <div class="service-icon"><div class="service-icon-circle" style="background:linear-gradient(135deg,#2196F3,#00BCD4);"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg></div><span>App Store</span></div>
+        <div class="service-icon"><div class="service-icon-circle" style="background:#10a37f;"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/></svg></div><span>ChatGPT</span></div>
+        <div class="service-icon"><div class="service-icon-circle" style="background:#003087;"><span style="font-weight:700;font-size:13px;">PS</span></div><span>PlayStation</span></div>
+        <div class="service-icon"><div class="service-icon-circle" style="background:#000;"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.51a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.56a8.27 8.27 0 0 0 4.83 1.55V6.66a4.84 4.84 0 0 1-1.07.03z"/></svg></div><span>TikTok</span></div>
+        <div class="service-icon"><div class="service-icon-circle" style="background:#1a5276;"><span style="font-weight:700;font-size:9px;">ML</span></div><span>Mobile Leg...</span></div>
+        <div class="service-icon"><div class="service-icon-circle" style="background:#e0e0e0;"><span style="color:#666;font-size:18px;">+</span></div><span>еще 841</span></div>
+      </div>
+    </section>
+
+    <section class="topup-section">
+      <div class="topup-block">
+        <div class="topup-left">
+          <div class="topup-steam-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3l-.5 3H13v6.95c5.05-.5 9-4.76 9-9.95 0-5.52-4.48-10-10-10z"/></svg>
+          </div>
+          <div class="topup-info">
+            <div class="topup-title-row">
+              <span class="topup-title">Пополнение Steam</span>
+              <span class="topup-badge">5%</span>
+            </div>
+            <button class="topup-promo-link" id="topupPromoLink">Введи промокод &#9662;</button>
+          </div>
+        </div>
+        <div class="topup-center">
+          <div class="topup-login-group">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input type="text" placeholder="Логин Steam" class="topup-login-input">
+            <span class="topup-login-info">i</span>
+          </div>
+        </div>
+        <div class="topup-right">
+          <div class="topup-sum">
+            <span class="topup-sum-label">Сумма</span>
+            <span class="topup-sum-value" id="topupSumValue">500&#8381;</span>
+          </div>
+          <div class="currency-switcher" id="currencySwitcher">
+            <button class="currency-btn" data-currency="USD">$</button>
+            <button class="currency-btn active" data-currency="RUB">&#8381;</button>
+            <button class="currency-btn" data-currency="KZT">&#8376;</button>
+          </div>
+          <button class="topup-pay-btn" id="topupPayBtn">Оплатить 500&#8381;</button>
+        </div>
+      </div>
+      <div class="topup-promo-row" id="topupPromoRow" style="display:none;">
+        <input type="text" class="promo-input" id="promoInputTopup" placeholder="Введите промокод">
+        <button class="promo-apply-btn" id="promoApplyTopup">Применить</button>
+        <div class="promo-result" id="promoResultTopup"></div>
+      </div>
+    </section>
+
+    <section class="products-section">
+      <div class="section-header">
+        <h2>Популярные товары</h2>
+        <div class="section-tabs">
+          <button class="section-tab active" data-filter="">Донат</button>
+          <button class="section-tab" data-filter="subscription">Подписки</button>
+          <button class="section-tab" data-filter="key">Предметы</button>
+          <button class="section-tab" data-filter="">Аккаунты</button>
+          <button class="section-tab" data-filter="">Ключи</button>
+          <button class="section-tab" data-filter="">Игровая валюта</button>
+          <button class="section-tab" data-filter="">Другое</button>
+        </div>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <section class="products-section">
+      <div class="section-header">
+        <h2>Рекомендованные товары</h2>
+        <a href="#" class="show-all">Показать все</a>
+      </div>
+      <div class="products-grid" id="recommendedGrid"></div>
+    </section>
+
+    <section class="products-section">
+      <div class="section-header">
+        <h2>Другие товары</h2>
+        <a href="#" class="show-all">Показать все</a>
+      </div>
+      <div class="products-grid" id="otherGrid"></div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <div class="admin-overlay" id="adminOverlay">
+    <div class="admin-panel">
+      <button class="admin-close" id="adminClose">&times;</button>
+      <h2>Админ-панель</h2>
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="stuck">Заказы с проблемами</button>
+        <button class="admin-tab" data-tab="audit">Аудит-журнал</button>
+      </div>
+      <div class="admin-tab-content" id="adminTabContent"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="#">Стать продавцом</a>
+        <a href="#">Бонусы</a>
+        <a href="#">Поддержка</a>
+        <a href="#">Гарантии</a>
+        <a href="#">Отзывы</a>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-social">
+          <a href="#">VK</a>
+          <a href="#">TG</a>
+          <a href="#">TT</a>
+          <a href="#">YT</a>
+        </div>
+        <div class="footer-payments">
+          <span class="payment-badge">VISA</span>
+          <span class="payment-badge">МИР</span>
+          <span class="payment-badge">MC</span>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Соглашение</a>
+        <a href="#">Договор-оферта</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
